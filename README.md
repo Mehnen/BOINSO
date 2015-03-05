@@ -2,7 +2,7 @@
 
 BOINSO is a free open source web application to help Mission Control Centers (amateur or educational) to pass scheduling data to participating Ground Control Stations.
 
-Documentation: http://mehnen.github.io/BOINSO/
+Documentation: http://mehnen.github.io/BOINSO/site/
 
 Git-Repo: https://github.com/Mehnen/BOINSO
 
