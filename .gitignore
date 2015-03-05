@@ -1,0 +1,8 @@
+# Vagrant stuff
+boxes/*
+/.vagrant
+
+# IDE stuff
+.idea/*
+*.iml
+.project
