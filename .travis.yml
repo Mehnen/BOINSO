@@ -4,8 +4,13 @@ python:
     - "2.7"
     - "3.4"
 
+services: postgresql
+
 env:
     - DB=postgres
+
+before_script:
+    - psql -c 'create database travisci;' -U postgres
 
 install: "pip install -r requirements.txt"
 
