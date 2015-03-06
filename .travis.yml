@@ -17,4 +17,4 @@ script:
     - coverage run --rcfile=.coverage.rc manage.py test
 
 after_success:
-    coveralls --config_file=.coverage.rc
+    coveralls --rcfile=.coverage.rc
