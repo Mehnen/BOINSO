@@ -9,6 +9,12 @@ services: postgresql
 before_script:
     - psql -c 'create database travisci;' -U postgres
 
-install: "pip install -r requirements.txt"
+install:
+    - pip install -r requirements.txt
+    - pip install coveralls
 
-script: "python manage.py test"
+script:
+    - coverage run manage.py test
+
+after_success:
+    coveralls
