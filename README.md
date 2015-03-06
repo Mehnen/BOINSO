@@ -1,4 +1,4 @@
-# BOINSO [![Build Status](https://travis-ci.org/Mehnen/BOINSO.svg?branch=master)](https://travis-ci.org/Mehnen/BOINSO)
+# BOINSO [![Build Status](https://travis-ci.org/Mehnen/BOINSO.svg?branch=master)](https://travis-ci.org/Mehnen/BOINSO) [![Coverage Status](https://coveralls.io/repos/Mehnen/BOINSO/badge.svg)](https://coveralls.io/r/Mehnen/BOINSO) [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Mehnen/BOINSO?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 BOINSO is a free open source web application to help Mission Control Centers (amateur or educational) to pass scheduling data to participating Ground Control Stations.
 
