@@ -11,6 +11,9 @@ Contents:
    about
    license
    help
+   core/modules/models
+   api/modules/serializers
+   api/modules/views   
 
 Indices and tables
 ==================

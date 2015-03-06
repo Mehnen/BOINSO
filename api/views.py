@@ -10,7 +10,10 @@ from rest_framework.reverse import reverse
 @api_view(('GET',))
 def api_root(request, format=None):
     """
-    API root view. Gives back urls to all endpoint roots.
+    API root view.
+
+    Returns:
+        Links to all other api enpoint roots.
     """
 
     return Response(
@@ -21,6 +24,14 @@ def api_root(request, format=None):
 
 
 class UserList(generics.ListCreateAPIView):
+
+    """
+    Generic user list endpoint.
+
+    Returns:
+        List of available users if requesting party is authorized
+    """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAdminUser,)
@@ -28,6 +39,14 @@ class UserList(generics.ListCreateAPIView):
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+
+    """
+    Generic user detail endpoint.
+
+    Returns:
+        Details about a single user if requesting party is authorized.
+    """
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsAdminUser,)
