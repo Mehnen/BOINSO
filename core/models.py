@@ -1,3 +1,8 @@
 from django.db import models
 
-# Create your models here.
+
+class TestModel(models.Model):
+    """
+    This is a testmodel doing nothing other than having a docstring
+    """
+    pass

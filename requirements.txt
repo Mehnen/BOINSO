@@ -6,3 +6,7 @@ django-oauth-toolkit==0.7.2
 # this package is exclusively for testing ssl
 # never use the django devel server or the django ssl server for production!
 django-sslserver==0.14
+
+# for building docu only
+sphinx
+sphinx_rtd_theme
