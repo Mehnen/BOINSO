@@ -30,12 +30,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'core',
+    'api'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,12 +75,12 @@ DATABASES = {
 if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'travisci',
-            'USER':     'postgres',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'travisci',
+            'USER': 'postgres',
             'PASSWORD': '',
-            'HOST':     'localhost',
-            'PORT':     '',
+            'HOST': 'localhost',
+            'PORT': '',
         }
     }
 
@@ -86,7 +89,9 @@ if 'TRAVIS' in os.environ:
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# Add your corresponding timezone here
+# For development as I am in Austria I choose Europe/Vienna
+TIME_ZONE = 'Europe/Vienna'
 
 USE_I18N = True
 
@@ -99,3 +104,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+}
