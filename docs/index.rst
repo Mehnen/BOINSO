@@ -10,6 +10,7 @@ Contents:
 
    about
    license
+   contribute
    help
    core/modules/models
    api/modules/serializers
