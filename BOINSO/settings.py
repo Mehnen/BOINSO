@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'oauth2_provider',
     'rest_framework',
     'core',
     'api'
@@ -107,12 +108,22 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# template directories
+# TEMPLATE_DIRS = (
+#     BASE_DIR + '/templates',
+# )
+
+# config for OAuth2Provider
+OAUTH2_PROVIDER = {
+    # available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope'}
+}
+
 
 # beware if you plan to use standard permission methods here
 # in some cases (as with the api_root method) this breaks
 # the public access (as no user is deliverd)
 REST_FRAMEWORK = {
-
     # I normally supply testdata in json format
     # as I tend to use the same fixtures in the front end
     'TEST_REQUEST_DEFAULT_FORMAT': 'json'

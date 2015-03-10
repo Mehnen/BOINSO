@@ -1,6 +1,9 @@
 # if you change your database backend you don't need this driver
 psycopg2==2.6
 
+# for the safest timezone support install this package
+pytz==2014.10
+
 Django==1.7.5
 djangorestframework==3.0.5
 django-oauth-toolkit==0.7.2
@@ -13,5 +16,3 @@ django-sslserver==0.14
 sphinx
 sphinx_rtd_theme
 
-# for the safest timezone support install this package
-pytz==2014.10

@@ -1,4 +1,3 @@
-from django.db import models
+# from django.db import models
 
-
-# nothin here yet --- yaaay
+# nothing here yet
