@@ -1,3 +1,9 @@
-# from django.db import models
+from django.db import models
+from django.contrib.auth.models import User
 
-# nothing here yet
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    altitude = models.FloatField()
