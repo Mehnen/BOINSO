@@ -11,6 +11,7 @@ Contents:
    about
    license
    contribute
+   client_dev
    help
    core/modules/models
    api/modules/serializers
