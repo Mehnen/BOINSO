@@ -2,6 +2,8 @@ from oauth2_provider.models import Application
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
+from core.models import UserProfile
+
 
 def create_auth_client(sender, instance=None, created=False, **kwargs):
     """
@@ -13,6 +15,8 @@ def create_auth_client(sender, instance=None, created=False, **kwargs):
             user=instance,
             client_type=Application.CLIENT_CONFIDENTIAL,
             authorization_grant_type=Application.GRANT_PASSWORD)
+
+        UserProfile.objects.create(user=instance)
 
 
 post_save.connect(create_auth_client, sender=User, dispatch_uid="sign_up_user")

@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
 
-from api.serializers import UserSerializer, SignUpSerializer, LoginSerializer
+from api.serializers import (UserSerializer, SignUpSerializer, LoginSerializer,
+                             UserProfileSerializer)
 from api.permissions import IsAuthenticatedOrCreate
+
+from core.models import UserProfile
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -10,7 +13,9 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.authentication import BasicAuthentication
 
-from oauth2_provider.ext.rest_framework import OAuth2Authentication, TokenHasReadWriteScope
+from oauth2_provider.ext.rest_framework import (
+    OAuth2Authentication, TokenHasReadWriteScope
+)
 
 
 @api_view(('GET',))
@@ -22,9 +27,10 @@ def api_root(request, format=None):
 
     return Response(
         {
-            'users': reverse('user-list', request=request, format=format),
             'sign-up': reverse('sign-up', request=request, format=format),
-            'login': reverse('login', request=request, format=format)
+            'login': reverse('login', request=request, format=format),
+            'user-profile-proxy': reverse(
+                'user-profile-proxy', request=request, format=format),
         }
     )
 
@@ -59,6 +65,38 @@ class Login(generics.ListAPIView):
         return [self.request.user]
 
 
+class UserProfileProxy(generics.ListAPIView):
+
+    """
+    Narrows down the search for a user via his authentication.
+    Authenticated user sees his own profile and can update it.
+    """
+
+    serializer_class = UserProfileSerializer
+    authentication_classes = (OAuth2Authentication,)
+    permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
+
+    def get_queryset(self):
+        """
+        This view should only get the profile of the authenticated user.
+        """
+
+        user = self.request.user
+        return UserProfile.objects.filter(user=user)
+
+
+class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
+
+    """
+    Detail view for UserProfile.
+    Authenticated can update or destroy their Profiles.
+    """
+
+    serializer_class = UserProfileSerializer
+    authentication_classes = (OAuth2Authentication,)
+    permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
+
+
 class UserList(generics.ListCreateAPIView):
 
     """
@@ -70,10 +108,9 @@ class UserList(generics.ListCreateAPIView):
     serializer_class = UserSerializer
     authentication_classes = (OAuth2Authentication,)
     permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
-    paginate_by = 100
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserDetail(generics.RetrieveUpdateAPIView):
 
     """
     Generic user detail endpoint.

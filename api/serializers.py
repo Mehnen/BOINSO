@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from core.models import UserProfile
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -68,3 +69,18 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+
+    """
+    Serializes User Profiles, giving Clients the possiblility
+    to see their profiles.
+    """
+
+    user = serializers.HyperlinkedRelatedField(
+        view_name='user-detail', read_only=True)
+
+    class Meta:
+        model = UserProfile
+        fields = ('url', 'user')

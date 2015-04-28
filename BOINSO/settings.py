@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # I don't use the admin views as I have the browsable api
 # If you want to use it you cann add the support here
 INSTALLED_APPS = (
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

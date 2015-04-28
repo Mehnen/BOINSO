@@ -1,19 +1,25 @@
 from django.conf.urls import patterns, url
-from api.views import api_root, UserList, UserDetail, SignUp, Login
+from api import views
 
 urlpatterns = patterns(
     '',
-    url(r'^$', api_root),
+    url(r'^$', views.api_root),
     url(r'^sign_up/$',
-        SignUp.as_view(),
+        views.SignUp.as_view(),
         name='sign-up'),
     url(r'^login/$',
-        Login.as_view(),
+        views.Login.as_view(),
         name='login'),
     url(r'^users/$',
-        UserList.as_view(),
+        views.UserList.as_view(),
         name='user-list'),
     url(r'^users/(?P<pk>[0-9]+)/$',
-        UserDetail.as_view(),
-        name='user-detail')
+        views.UserDetail.as_view(),
+        name='user-detail'),
+    url(r'^user-profiles/$',
+        views.UserProfileProxy.as_view(),
+        name='user-profile-proxy'),
+    url(r'^user-profiles/(?P<pk>[0-9]+)/$',
+        views.UserProfileDetail.as_view(),
+        name='userprofile-detail'),
 )
