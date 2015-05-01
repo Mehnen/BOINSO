@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 from api.serializers import (UserSerializer, SignUpSerializer, LoginSerializer,
                              UserProfileSerializer)
-from api.permissions import IsAuthenticatedOrCreate
+from api.permissions import IsAuthenticatedOrCreate, IsProfileOwner, IsUser
 
 from core.models import UserProfile
 
@@ -69,7 +69,8 @@ class UserProfileProxy(generics.ListAPIView):
 
     """
     Narrows down the search for a user via his authentication.
-    Authenticated user sees his own profile and can update it.
+    Authenticated user sees his own profile and a link to his user endpoint.
+    Is used to get userdata via oauth token authentication.
     """
 
     serializer_class = UserProfileSerializer
@@ -92,9 +93,11 @@ class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
     Authenticated can update or destroy their Profiles.
     """
 
+    queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     authentication_classes = (OAuth2Authentication,)
-    permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
+    permission_classes = (
+        IsAuthenticated, IsProfileOwner, TokenHasReadWriteScope)
 
 
 class UserList(generics.ListCreateAPIView):
@@ -120,4 +123,4 @@ class UserDetail(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     authentication_classes = (OAuth2Authentication,)
-    permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
+    permission_classes = (IsAuthenticated, TokenHasReadWriteScope, IsUser)
