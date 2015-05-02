@@ -31,6 +31,7 @@ def api_root(request, format=None):
             'login': reverse('login', request=request, format=format),
             'user-profile-proxy': reverse(
                 'user-profile-proxy', request=request, format=format),
+            'user-list': reverse('user-list', request=request, format=format)
         }
     )
 
