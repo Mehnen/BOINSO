@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from core.models import UserProfile
+from core.models import UserProfile, Satellite, Transponder
 
 
 class SignUpSerializer(serializers.ModelSerializer):
@@ -84,3 +84,35 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = UserProfile
         fields = ('url', 'user', 'latitude', 'longitude', 'altitude')
+
+
+class SatelliteSerializer(serializers.HyperlinkedModelSerializer):
+
+    """
+    Serialzes Satellite objects. Clients should see data
+    regardles of their login status. Read only.
+    """
+
+    transponders = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='transponder-detail'
+    )
+
+    class Meta:
+        model = Satellite
+        fields = ('url', 'version', 'name', 'nickname',
+                  'tle', 'status', 'transponders')
+
+
+class TransponderSerializer(serializers.HyperlinkedModelSerializer):
+
+    """
+    Serializes transponder objects. One Satellite can have
+    multible transponders. Transponder info is optional.
+    """
+
+    class Meta:
+        model = Transponder
+        fields = ('url', 'satellite', 'name', 'up_low',
+                  'up_high', 'down_low', 'down_high', 'inverted')

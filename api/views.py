@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 
 from api.serializers import (UserSerializer, SignUpSerializer, LoginSerializer,
-                             UserProfileSerializer)
+                             UserProfileSerializer, SatelliteSerializer,
+                             TransponderSerializer)
 from api.permissions import IsAuthenticatedOrCreate, IsProfileOwner, IsUser
 
-from core.models import UserProfile
+from core.models import UserProfile, Satellite, Transponder
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
@@ -27,11 +28,16 @@ def api_root(request, format=None):
 
     return Response(
         {
-            'sign-up': reverse('sign-up', request=request, format=format),
-            'login': reverse('login', request=request, format=format),
-            'user-profile-proxy': reverse(
-                'user-profile-proxy', request=request, format=format),
-            'user-list': reverse('user-list', request=request, format=format)
+            'sign-up': reverse('sign-up',
+                               request=request, format=format),
+            'login': reverse('login',
+                             request=request, format=format),
+            'user-profile-proxy': reverse('user-profile-proxy',
+                                          request=request, format=format),
+            'user-list': reverse('user-list',
+                                 request=request, format=format),
+            'satellite-list': reverse('satellite-list',
+                                      request=request, format=format)
         }
     )
 
@@ -125,3 +131,34 @@ class UserDetail(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
     authentication_classes = (OAuth2Authentication,)
     permission_classes = (IsAuthenticated, TokenHasReadWriteScope, IsUser)
+
+
+class SatelliteList(generics.ListAPIView):
+
+    """
+    Public endpoint to acess a list of mission control satellite data.
+    All userers may see the data.
+    """
+
+    queryset = Satellite.objects.all()
+    serializer_class = SatelliteSerializer
+
+
+class SatelliteDetail(generics.RetrieveAPIView):
+
+    """
+    Detail endpoint related to SatelliteList.
+    """
+
+    queryset = Satellite.objects.all()
+    serializer_class = SatelliteSerializer
+
+
+class TransponderDetail(generics.RetrieveAPIView):
+
+    """
+    Detail endpoint for transponders.
+    """
+
+    queryset = Transponder.objects.all()
+    serializer_class = TransponderSerializer

@@ -65,3 +65,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# project specific garbage
+media

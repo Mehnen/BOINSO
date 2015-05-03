@@ -22,4 +22,13 @@ urlpatterns = patterns(
     url(r'^user-profiles/(?P<pk>[0-9]+)/$',
         views.UserProfileDetail.as_view(),
         name='userprofile-detail'),
+    url(r'^satellites/$',
+        views.SatelliteList.as_view(),
+        name='satellite-list'),
+    url(r'^satellites/(?P<pk>[0-9]+)/$',
+        views.SatelliteDetail.as_view(),
+        name='satellite-detail'),
+    url(r'^transponders/(?P<pk>[0-9]+)/$',
+        views.TransponderDetail.as_view(),
+        name='transponder-detail')
 )
