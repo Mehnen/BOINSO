@@ -101,7 +101,7 @@ class SatelliteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Satellite
-        fields = ('url', 'version', 'name', 'nickname',
+        fields = ('url', 'catalogue_number', 'version', 'name', 'nickname',
                   'tle', 'status', 'transponders')
 
 
