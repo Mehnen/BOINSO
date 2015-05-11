@@ -34,8 +34,8 @@ def api_root(request, format=None):
                              request=request, format=format),
             'user-profile-proxy': reverse('user-profile-proxy',
                                           request=request, format=format),
-            'user-list': reverse('user-list',
-                                 request=request, format=format),
+            # 'user-list': reverse('user-list',
+            #                      request=request, format=format),
             'satellite-list': reverse('satellite-list',
                                       request=request, format=format)
         }
@@ -107,17 +107,17 @@ class UserProfileDetail(generics.RetrieveUpdateDestroyAPIView):
         IsAuthenticated, IsProfileOwner, TokenHasReadWriteScope)
 
 
-class UserList(generics.ListCreateAPIView):
+# class UserList(generics.ListCreateAPIView):
 
-    """
-    Generic user list endpoint.
-    Authenticated users see all user accounts and may create new users.
-    """
+#     """
+#     Generic user list endpoint.
+#     Authenticated users see all user accounts and may create new users.
+#     """
 
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-    authentication_classes = (OAuth2Authentication,)
-    permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     authentication_classes = (OAuth2Authentication,)
+#     permission_classes = (IsAuthenticated, TokenHasReadWriteScope)
 
 
 class UserDetail(generics.RetrieveUpdateAPIView):
